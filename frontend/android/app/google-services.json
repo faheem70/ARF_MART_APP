@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1094961114703",
+    "project_id": "crafty-cache-356414",
+    "storage_bucket": "crafty-cache-356414.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094961114703:android:6b7034317dfa23a7fb443a",
+        "android_client_info": {
+          "package_name": "com.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094961114703-fj5t1pqve5gebsgkvbe20vpq7iunpa60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4xdZPAFLH9afRBVx7UCn2qR7nU2xwjLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094961114703-fj5t1pqve5gebsgkvbe20vpq7iunpa60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
