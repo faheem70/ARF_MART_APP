@@ -1,25 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { saveShippingInfo } from '../../actions/cartAction';
 import { Picker } from "@react-native-picker/picker"
-const Shipping = ({ navigation }) => {
-    const dispatch = useDispatch();
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const Shipping = ({ navigation, route }) => {
+    const dispatch = useDispatch();
+    const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
     const [pinCode, setPinCode] = useState('');
-    const [phoneNo, setPhoneNo] = useState('');
+    const [phoneNo, setPhoneNo] = useState('+91');
+    const userId = route.params?.userId;
+    const isAuthenticatedUser = route.params.isAuthenticatedUser;
 
-    const shippingSubmit = () => {
-        if (phoneNo.length !== 10) {
-            Alert.alert('Phone Number should be 10 digits long');
+    useEffect(() => {
+        const loadSavedAddress = async () => {
+            try {
+                const savedAddress = await AsyncStorage.getItem('userAddress');
+                if (savedAddress) {
+                    const parsedAddress = JSON.parse(savedAddress);
+                    setName(parsedAddress.name);
+                    setAddress(parsedAddress.address);
+                    setCity(parsedAddress.city);
+                    setState(parsedAddress.state);
+                    setCountry(parsedAddress.country);
+                    setPinCode(parsedAddress.pinCode);
+                    setPhoneNo(parsedAddress.phoneNo);
+                }
+            } catch (error) {
+                console.error('Error loading address from AsyncStorage:', error);
+            }
+        };
+
+        loadSavedAddress();
+    }, []);
+
+    const shippingSubmit = async () => {
+        if (phoneNo.length !== 13) {
+            Alert.alert('Phone Number should be 13 digits long');
             return;
         }
-        dispatch(saveShippingInfo({ address, city, state, country, pinCode, phoneNo }));
-        navigation.navigate('ConfirmOrder'); // Use React Navigation for navigation
+
+        try {
+            await AsyncStorage.setItem('userAddress', JSON.stringify({ name, address, city, state, country, pinCode, phoneNo }));
+        } catch (error) {
+            console.error('Error saving address to AsyncStorage:', error);
+        }
+
+        dispatch(saveShippingInfo({ name, address, city, state, country, pinCode, phoneNo }));
+        navigation.navigate('ConfirmOrder', { userId: userId, isAuthenticatedUser: isAuthenticatedUser });
+    };
+
+    const resetToDefault = () => {
+        Alert.alert(
+            'Reset Address',
+            'Are you sure you want to reset the address to default values?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'OK', onPress: () => resetAddressToDefault() },
+            ]
+        );
+    };
+
+    const resetAddressToDefault = () => {
+        AsyncStorage.removeItem('userAddress');
+        setName('');
+        setAddress('');
+        setCity('');
+        setState('');
+        setCountry('');
+        setPinCode('');
+        setPhoneNo('+91');
     };
 
     return (
@@ -27,6 +82,14 @@ const Shipping = ({ navigation }) => {
             <Text style={styles.shippingHeading}>Shipping Details</Text>
 
             <View style={styles.formContainer}>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Name"
+                        value={name}
+                        onChangeText={(text) => setName(text)}
+                    />
+                </View>
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
@@ -60,6 +123,7 @@ const Shipping = ({ navigation }) => {
                         placeholder="Phone Number"
                         value={phoneNo}
                         onChangeText={(text) => setPhoneNo(text)}
+                        maxLength={14}
                     />
                 </View>
 
@@ -86,6 +150,10 @@ const Shipping = ({ navigation }) => {
                         </Picker>
                     </View>
                 )}
+
+                <TouchableOpacity style={styles.resetButton} onPress={resetToDefault}>
+                    <Text style={styles.resetText}>Reset to Default</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.submitButton}
@@ -121,11 +189,24 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'gray',
     },
-    submitButton: {
-        backgroundColor: 'blue',
+    resetButton: {
+        backgroundColor: 'red',
         padding: 16,
         borderRadius: 8,
         alignItems: 'center',
+        marginTop: 16,
+    },
+    resetText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    submitButton: {
+        backgroundColor: 'orange',
+        padding: 16,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 16,
     },
     submitText: {
         color: 'white',

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Pressable, Modal, ActivityIndicator, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, login, register } from '../../actions/userAction';
-import PhoneSignIn from './PhoneSignIn';
-import GoogleLogin from './GoogleLogin';
+//import PhoneSignIn from './PhoneSignIn';
+//import GoogleLogin from './GoogleLogin';
 
 
 const LoginSignUp = ({ navigation }) => {
@@ -74,7 +74,19 @@ const LoginSignUp = ({ navigation }) => {
             Alert.alert("User Registration Unsuccessful");
         } else {
             // No errors, proceed with registration
-            dispatch(register(user));
+            dispatch(register(user))
+                .then(() => {
+                    // Registration was successful
+                    Alert.alert('Registration Successful', 'You can now log in with your new account.');
+                })
+                .catch((error) => {
+                    // Handle registration error
+                    if (error && typeof error === 'object' && Object.keys(error).length > 0) {
+                        // Handle or display registration errors
+                        Alert.alert('User Registration Unsuccessful');
+                    }
+                });
+
         }
     };
 
@@ -222,8 +234,8 @@ const LoginSignUp = ({ navigation }) => {
                         </TouchableOpacity>
 
                         {error && <Text style={styles.errorMessage}>{error}</Text>}
-                        <PhoneSignIn />
-                        <GoogleLogin />
+
+
                     </View>
                 ) : (
                     <View>
@@ -249,9 +261,7 @@ const LoginSignUp = ({ navigation }) => {
                         <TouchableOpacity style={styles.button} onPress={registerSubmit}>
                             <Text style={styles.buttonText}>Register</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={navigation.navigate('ConfirmEmail', { token: 'yourTokenHere' })}>
-                            <Text >Confim </Text>
-                        </TouchableOpacity>
+
                     </View>
                 )}
             </View>

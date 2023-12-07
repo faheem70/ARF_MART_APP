@@ -5,16 +5,18 @@ import MetaData from '../layout/MetaData';
 import CheckoutSteps from '../Cart/CheckoutSteps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ConfirmOrder = ({ navigation }) => {
+const ConfirmOrder = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
-
+    const userId = route.params?.userId;
+    const isAuthenticatedUser = route.params.isAuthenticatedUser;
+    //console.log("UserID", userId);
     const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
     const shippingCharges = subtotal > 1000 ? 0 : 200;
     const tax = subtotal * 0.18;
     const totalPrice = subtotal + tax + shippingCharges;
-    const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
+    const address = `${shippingInfo.name}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
     const proceedToPayment = async () => {
         const data = {
@@ -27,7 +29,7 @@ const ConfirmOrder = ({ navigation }) => {
         try {
             await AsyncStorage.setItem('orderInfo', JSON.stringify(data));
             // Navigate to the payment screen
-            navigation.navigate('Payment');
+            navigation.navigate('Payment', { userId: userId, isAuthenticatedUser: isAuthenticatedUser });
         } catch (error) {
             // Handle the error
             console.error('Error storing data:', error);
@@ -44,7 +46,7 @@ const ConfirmOrder = ({ navigation }) => {
                     <View style={styles.confirmshippingAreaBox}>
                         <View style={styles.shippingInfoItem}>
                             <Text>Name:</Text>
-                            <Text>{user.name}</Text>
+                            <Text>{shippingInfo.name}</Text>
                         </View>
                         <View style={styles.shippingInfoItem}>
                             <Text>Phone:</Text>

@@ -5,14 +5,17 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RadioButton } from "react-native-paper";
 import { StyleSheet } from "react-native"; // Import StyleSheet
+import { createOrder } from "../../actions/orderAction";
 
-const Payment = ({ navigation }) => {
+const Payment = ({ navigation, route }) => {
     const [orderInfo, setOrderInfo] = useState(null);
-
+    const isAuthenticatedUser = route.params?.isAuthenticatedUser;
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
     const { error } = useSelector((state) => state.newOrder);
-
+    const userId = route.params?.userId;
+    const dispatch = useDispatch();
+    console.log(userId);
     const productIds = cartItems.map((cartItem) => cartItem.product);
 
     const [paymentMethod, setPaymentMethod] = useState("cod"); // Default to Stripe
@@ -34,35 +37,36 @@ const Payment = ({ navigation }) => {
             id: "COD", // You can use any identifier for COD payments
             status: "Cash On Delivery",
         },
-        user: user._id,
+        user: user?._id || userId,
     };
 
     console.log(order);
+    console.log("token", isAuthenticatedUser);
 
     const handlePaymentMethodChange = (method) => {
         setPaymentMethod(method);
     };
 
-    const handleCashOnDelivery = () => {
-        axios
-            .post("https://arf-backend.onrender.com/api/v1/payment/cod", order)
-            .then((response) => {
-                if (response.data.success) {
-                    navigation.navigate("OrderSuccess");
-                } else {
-                    // Handle your custom error message display here
-                    // You can use state to manage the error message instead of direct DOM manipulation
-                    console.error("Payment Failed: ", response.data.error);
-                }
-            })
-            .catch((error) => {
-                // Handle your custom error message display here
-                // You can use state to manage the error message instead of direct DOM manipulation
-                console.error("Request Failed: ", error);
-                Alert.alert("Error", "An error occurred while processing your request.");
-            });
-    };
+    const handleCashOnDelivery = async () => {
+        try {
+            const response = await axios.post(
+                "https://arf-backend.onrender.com/api/v1/payment/cod",
+                order
+            );
 
+            if (response.data.success) {
+                console.log("Payment Successful");
+                dispatch(createOrder(order));
+                navigation.navigate("OrderSuccess", { userId: userId });
+            } else {
+                console.error("Payment Failed: ", response.data.error);
+                Alert.alert("Payment Failed", "An error occurred while processing your payment.");
+            }
+        } catch (error) {
+            console.error("Request Failed: ", error);
+            Alert.alert("Error", "An error occurred while processing your request.");
+        }
+    };
 
     const handlePlaceOrder = () => {
         if (paymentMethod === "stripe") {

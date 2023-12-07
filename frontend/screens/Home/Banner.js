@@ -3,11 +3,11 @@ import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 const data = [
-    'https://sparepartsonline.in/wp-content/uploads/2018/08/mobile-phone-accessories-banner.jpg',
-    'https://assets-static.invideo.io/images/origin/Creative_Clothing_Advertisement_Ideas_To_Boost_Sales_revised_3_1_cefa9cda88.png',
-    'https://img.freepik.com/free-vector/fashion-template-design_23-2150745900.jpg?w=2000',
-    'https://www.heliocentrix.in/wp-content/uploads/2020/05/hp-340-laptop-price-banner.jpg',
-    'https://www.boat-lifestyle.com/cdn/shop/files/Wave_Style_Call_WEB_1_1440x.jpg?v=1695129521',
+    'https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-summer-atmosphere-restaurant-supermarket-vegetable-psd-layered-promotion-background-image_159939.jpg',
+    'https://timelinecovers.pro/facebook-cover/download/fruits-decor-facebook-cover.jpg',
+    'https://images.template.net/57111/Grocery-Supplies-Facebook-Cover-Template.jpeg',
+    'https://timelinecovers.pro/facebook-cover/download/cherry-chocolate-cake-facebook-cover.jpg',
+    'https://www.jaindairy.com/wp-content/uploads/2020/06/banner1.jpg',
 ];
 
 const imageLinks = [

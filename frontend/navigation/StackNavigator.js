@@ -33,6 +33,9 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector } from 'react-redux';
+import Otp from '../screens/User/Otp';
+
+//import GoogleLogin from '../screens/User/GoogleLogin';
 //import PhoneSignIn from '../screens/User/PhoneSignIn';
 
 const StackNavigator = () => {
@@ -128,7 +131,7 @@ const StackNavigator = () => {
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen name="LoginSignUp" component={LoginSignUp} />
-                <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+
                 <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
                 <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -141,13 +144,14 @@ const StackNavigator = () => {
                 <Stack.Screen name="Orders" component={MyOrders} />
                 <Stack.Screen name="OrderDetails" component={OrderDetails} />
                 <Stack.Screen name="Dashboard" component={Dashboard} />
-                <Stack.Screen name="ProductList" component={ProductList} />
+
                 <Stack.Screen name="NewProduct" component={NewProduct} />
                 <Stack.Screen name="UpdateProduct" component={UpdateProduct} />
                 <Stack.Screen name="OrderList" component={OrderList} />
                 <Stack.Screen name="ProcessOrder" component={ProcessOrder} />
                 <Stack.Screen name="UserList" component={UsersList} />
                 <Stack.Screen name="UpdateUser" component={UpdateUser} />
+                <Stack.Screen name="Otp" component={Otp} />
 
 
             </Stack.Navigator>

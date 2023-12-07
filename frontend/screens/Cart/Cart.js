@@ -32,7 +32,7 @@ const Cart = ({ navigation }) => {
         if (isAuthenticated) {
             navigation.navigate('Shipping');
         } else {
-            navigation.navigate("LoginSignUp");
+            navigation.navigate("Otp");
         }
     };
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f2f2f2',
-        marginTop: 1
+
     },
     emptyCart: {
         flex: 1,

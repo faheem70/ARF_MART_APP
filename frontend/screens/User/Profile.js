@@ -1,10 +1,19 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../actions/userAction"
 import { clearCartOnLogout } from '../../actions/cartAction';
+
+import axios from 'axios';
+import { useRoute } from '@react-navigation/native';
 //import { Icon } from 'react-native-paper';
-const Profile = ({ navigation }) => {
+const Profile = ({ navigation, route }) => {
+
+    const userId = route.params.userId;
+    console.log("userId", userId);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
+    const [userData, setUserData] = useState(null);
     const { user, loading, isAuthenticated } = useSelector(state => state.user);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -19,6 +28,29 @@ const Profile = ({ navigation }) => {
         dispatch(clearCartOnLogout());
 
     }
+
+    useEffect(() => {
+        const handleGetUserData = async () => {
+            try {
+                const response = await axios.get(`https://arf-backend.onrender.com/api/v1/otplogin/${userId}`);
+                const data = response.data;
+
+                if (data.success) {
+                    setUserData(data.userData);
+                    setResponseMessage(''); // Clear any previous error messages
+                } else {
+                    setUserData(null);
+                    setResponseMessage(data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                setUserData(null);
+                setResponseMessage('An error occurred');
+            }
+        };
+
+        handleGetUserData();
+    }, [userId]);
 
     const styles = StyleSheet.create({
         container: {
@@ -78,13 +110,28 @@ const Profile = ({ navigation }) => {
                             style={styles.profileImage}
                         />
                         <Text style={styles.sectionTitle}>My Profile</Text>
+                            {
+                                userData && (
+                                    <TouchableOpacity
+                                        onPress={() => navigation.navigate('Orders', { userId: userId })}
+                                    >
+                                        <Text style={styles.actionButton}>My Orders</Text>
+                                    </TouchableOpacity>
+                                )
+                            }
 
-                        <TouchableOpacity onPress={() => navigation.navigate('Orders')}>
-                            <Text style={styles.actionButton}>My Orders</Text>
-                        </TouchableOpacity>
+
+                            {userData && (
+                                <View>
+                                    <Text>User ID: {userData.uid}</Text>
+                                    <Text>Phone Number: {userData.phoneNumber}</Text>
+                                    <Text>Display Name: {userData.displayName}</Text>
+                                    <Text>Email: {userData.email}</Text>
+                                </View>
+                            )}
                         {!isAuthenticated ? (
                             <TouchableOpacity onPress={() => navigation.navigate('LoginSignUp')}>
-                                <Text style={styles.actionButton}>Login</Text>
+                                    <Text style={styles.actionButton}>Add Personal Details</Text>
                             </TouchableOpacity>
                         ) : (
                             <TouchableOpacity onPress={() => navigation.navigate('UpdateProfile')}>

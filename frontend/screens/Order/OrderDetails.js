@@ -30,7 +30,7 @@ const OrderDetails = ({ route }) => {
                     <View style={styles.sectionContainer}>
                         <View style={styles.row}>
                             <Text>Name:</Text>
-                            <Text style={styles.text}>{order.user ? order.user.name : 'N/A'}</Text>
+                                <Text style={styles.text}>{order.shippingInfo ? order.shippingInfo.name : 'N/A'}</Text>
                         </View>
                         <View style={styles.row}>
                             <Text>Phone:</Text>

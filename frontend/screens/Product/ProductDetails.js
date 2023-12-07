@@ -99,7 +99,7 @@ const ProductDetails = ({ route }) => {
             ) : (
                 <Fragment>
                     {product ? (
-                        <MetaData title={"-- ARF MART"} />
+                            <MetaData title={"-- Mini Mart"} />
                     ) : null}
 
                     <View style={styles.container}>

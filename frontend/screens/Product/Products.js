@@ -11,21 +11,20 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, getProduct } from '../../actions/productAction';
-import ProductCard from '../Home/ProductCart'; // Create this component in your project
-import Loader from '../layout/Loader/Loader'; // Create this component in your project
+import ProductCard from '../Home/ProductCart';
+import Loader from '../layout/Loader/Loader';
 import Slider from 'react-native-slider';
 import { AntDesign } from '@expo/vector-icons';
 
 const windowWidth = Dimensions.get('window').width;
 
 const categories = [
-    'Electronics',
-    'Appliances',
-    'Toys',
-    'Fashion',
-    'Furniture',
+    "Vegetables",
+    'Fruits',
     'Grocery',
-    'SmartPhones',
+    'Grill Fast Food',
+    'Cakes',
+    'Dairy'
 ];
 
 const Products = ({ route, navigation }) => {

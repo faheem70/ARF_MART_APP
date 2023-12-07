@@ -9,21 +9,21 @@ import Carousel from 'react-native-snap-carousel';
 import HomeScreen from '../HomeScreen';
 
 const categories = [
-    'Electronics',
-    'Appliances',
-    'Toys',
-    'Fashion',
-    'Furniture',
+    "Vegetables",
+    'Fruits',
     'Grocery',
-    'SmartPhones',
+    'Grill Fast Food',
+    'Cakes',
+    'Dairy'
 ];
 
 const categoryImages = [
-    'https://img.freepik.com/premium-photo/futuristic-gadgets-showcase-lineup-sleek-modern-technological-devices_977107-682.jpg',
-    'https://femina.wwmindia.com/content/2020/sep/home-appliances.jpg',
-    'https://m.media-amazon.com/images/I/31ZjTsvLhJL._SX300_SY300_QL70_FMwebp_.jpg',
-    'https://media.istockphoto.com/id/1207472153/photo/african-american-woman-in-jacket-with-hands-in-pockets-looking-at-camera-isolated-on-turquoise.jpg?s=612x612&w=0&k=20&c=_qp_Bna-Ek8b9jSPi-B2DnkYJRggo-X3rA_wgziL3VU=',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-eEpI-IdCPdUFQacmfofHfuSImCtL4Iz9Z5zihmAgbgQLvl1U4zEVD_iNz9z263qRItU&usqp=CAU',
+    'https://wallpaperaccess.com/full/6835788.jpg',
+    'https://st.depositphotos.com/2072495/3764/i/450/depositphotos_37642495-stock-photo-fruits.jpg',
+    'https://img2.exportersindia.com/product_images/bc-full/2022/2/5104794/personal-care-products-1501500793-3183216.jpeg',
+    'https://howtostartanllc.com/images/business-ideas/business-idea-images/fast-food.jpg',
+    'https://i1.fnp.com/images/pr/l/v20190520192511/black-forest-cake-half-kg_1.jpg',
+    'https://cdn.firstcry.com/education/2022/11/07145239/Dairy-Product-List-For-Kids-with-their-Benefits-And-Facts.jpg',
     'https://s3.amazonaws.com/images.ecwid.com/images/22439182/3382994735.jpg',
     'https://m.media-amazon.com/images/I/41TmlehQnaL._SX300_SY300_QL70_FMwebp_.jpg',
 ];
@@ -69,11 +69,12 @@ const Home = ({ route }) => {
     };
 
     return (
+
         <View style={styles.container}>
             <HomeScreen />
             <ScrollView>
                 {loading ? (
-                    <View style={styles.loaderContainer}>
+                    <View style={[styles.loaderContainer, loading && { marginTop: 300 }]}>
                         <Loader />
                     </View>
                 ) : (
@@ -98,7 +99,7 @@ const Home = ({ route }) => {
 
                         {selectedCategory ? (
                             <>
-                                <Text style={styles.homeHeading}>{`${selectedCategory} Products`}</Text>
+                                    <Text style={styles.homeHeading}>{`${selectedCategory}`}</Text>
                                 <View style={styles.productContainer}>
                                     {products &&
                                         products
@@ -124,6 +125,7 @@ const Home = ({ route }) => {
                 )}
             </ScrollView>
         </View>
+
     );
 };
 
@@ -131,7 +133,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f4f4f4',
-        marginTop: 1
     },
     loaderContainer: {
         flex: 1,
