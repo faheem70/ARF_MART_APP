@@ -13,8 +13,8 @@ const ConfirmOrder = ({ navigation, route }) => {
     const isAuthenticatedUser = route.params.isAuthenticatedUser;
     //console.log("UserID", userId);
     const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
-    const shippingCharges = subtotal > 1000 ? 0 : 200;
-    const tax = subtotal * 0.18;
+    const shippingCharges = subtotal > 200 ? 0 : 10;
+    const tax = subtotal * 0.00;
     const totalPrice = subtotal + tax + shippingCharges;
     const address = `${shippingInfo.name}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 

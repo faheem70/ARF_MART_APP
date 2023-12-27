@@ -3,11 +3,10 @@ import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 const data = [
+    "https://t3.ftcdn.net/jpg/01/82/33/90/360_F_182339029_bINmHo4KLY61pLmO52Gl5RJv6Xbl6TgY.jpg",
     'https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-summer-atmosphere-restaurant-supermarket-vegetable-psd-layered-promotion-background-image_159939.jpg',
     'https://timelinecovers.pro/facebook-cover/download/fruits-decor-facebook-cover.jpg',
-    'https://images.template.net/57111/Grocery-Supplies-Facebook-Cover-Template.jpeg',
-    'https://timelinecovers.pro/facebook-cover/download/cherry-chocolate-cake-facebook-cover.jpg',
-    'https://www.jaindairy.com/wp-content/uploads/2020/06/banner1.jpg',
+
 ];
 
 const imageLinks = [

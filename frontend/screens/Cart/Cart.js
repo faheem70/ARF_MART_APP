@@ -42,7 +42,7 @@ const Cart = ({ navigation }) => {
             {cartItems.length === 0 ? (
                 <View style={styles.emptyCart}>
                     <Image source={require('../../assets/empty.gif')} style={styles.emptyImage} />
-                    <Text style={styles.emptyText}>Your ARF Cart is empty</Text>
+                    <Text style={styles.emptyText}>Your FreshKart Delights is empty</Text>
                     <Button title="View Products" onPress={() => navigation.navigate('Products')} />
                 </View>
             ) : (

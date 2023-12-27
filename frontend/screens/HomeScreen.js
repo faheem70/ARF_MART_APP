@@ -18,7 +18,7 @@ const HomeScreen = () => {
     return (
         <View style={styles.header}>
             <Image
-                source={require('../assets/logo28.svg')} // Replace with your logo source
+                source={require('../assets/logo4.png')} // Replace with your logo source
                 style={styles.logo}
             />
             <TextInput
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#333', // Set the background color as per your design
+        backgroundColor: '#000000', // Set the background color as per your design
         padding: 10,
         paddingTop: 10,
     },

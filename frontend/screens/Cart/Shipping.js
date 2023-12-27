@@ -13,7 +13,7 @@ const Shipping = ({ navigation, route }) => {
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
     const [pinCode, setPinCode] = useState('');
-    const [phoneNo, setPhoneNo] = useState('+91');
+    const [phoneNo, setPhoneNo] = useState('');
     const userId = route.params?.userId;
     const isAuthenticatedUser = route.params.isAuthenticatedUser;
 
@@ -122,8 +122,8 @@ const Shipping = ({ navigation, route }) => {
                         style={styles.input}
                         placeholder="Phone Number"
                         value={phoneNo}
-                        onChangeText={(text) => setPhoneNo(text)}
-                        maxLength={14}
+                        onChangeText={(text) => setPhoneNo(`+91${text}`)}
+                        maxLength={10} // Assuming the remaining digits are the actual phone number
                     />
                 </View>
 

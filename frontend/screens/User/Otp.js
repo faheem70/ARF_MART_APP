@@ -61,7 +61,7 @@ const Otp = () => {
         <View style={styles.container}>
             <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig} />
 
-            <Text style={styles.otpText}>Login using OTP</Text>
+            <Text style={styles.otpText}>Login to Verfiy</Text>
 
 
             <TextInput

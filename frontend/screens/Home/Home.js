@@ -11,21 +11,14 @@ import HomeScreen from '../HomeScreen';
 const categories = [
     "Vegetables",
     'Fruits',
-    'Grocery',
-    'Grill Fast Food',
-    'Cakes',
-    'Dairy'
+    "Grocery"
 ];
 
 const categoryImages = [
     'https://wallpaperaccess.com/full/6835788.jpg',
     'https://st.depositphotos.com/2072495/3764/i/450/depositphotos_37642495-stock-photo-fruits.jpg',
     'https://img2.exportersindia.com/product_images/bc-full/2022/2/5104794/personal-care-products-1501500793-3183216.jpeg',
-    'https://howtostartanllc.com/images/business-ideas/business-idea-images/fast-food.jpg',
-    'https://i1.fnp.com/images/pr/l/v20190520192511/black-forest-cake-half-kg_1.jpg',
-    'https://cdn.firstcry.com/education/2022/11/07145239/Dairy-Product-List-For-Kids-with-their-Benefits-And-Facts.jpg',
-    'https://s3.amazonaws.com/images.ecwid.com/images/22439182/3382994735.jpg',
-    'https://m.media-amazon.com/images/I/41TmlehQnaL._SX300_SY300_QL70_FMwebp_.jpg',
+
 ];
 
 const Home = ({ route }) => {
@@ -112,6 +105,7 @@ const Home = ({ route }) => {
                         ) : (
                             <>
                                 <Banner />
+                                        <Text style={styles.heading} >New Year 50% OFF for Every Products</Text>
                                 <Text style={styles.homeHeading}>Featured Products</Text>
                                 <View style={styles.productContainer}>
                                     {products &&
@@ -134,6 +128,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f4f4f4',
     },
+    heading: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: "green",
+        marginHorizontal: 10,
+        marginVertical: 20,
+    },
     loaderContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -141,14 +142,18 @@ const styles = StyleSheet.create({
     },
     categoryCard: {
         alignItems: 'center',
+        backgroundColor: '#90EE90',
         margin: 10,
 
     },
     categoryImageContainer: {
-        width: 80, // Adjust the width for the image container
-        height: 80, // Adjust the height for the image container
-        borderRadius: 60, // Make it a circle
+        width: 100, // Adjust the width for the image container
+        height: 100, // Adjust the height for the image container
+        // Make it a circle
+
+        borderRadius: 8,
         overflow: 'hidden', // Ensure the image stays within the boundaries
+        marginHorizontal: 5,
     },
     categoryImage: {
         flex: 1, // Allow the image to stretch within the container
